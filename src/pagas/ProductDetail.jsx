@@ -7,10 +7,12 @@ import { Container, HStack, VStack, useToast } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Stack, Box, Text, Image, Divider, ButtonGroup, Button } from '@chakra-ui/react'
 import { cartContext } from '../context/CartContextProvider';
 import { Rate } from "antd"
-
+import { Link as RouteLink} from 'react-router-dom';
+import { Link as ChakraLink } from '@chakra-ui/react';
 
 // from scriot
 import { getData } from '../script/getRequast';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 
 
 export default function ProductDetail() {
@@ -19,7 +21,6 @@ export default function ProductDetail() {
   const Nevigate = useNavigate()
   const [product, setproduct] = useState({})
 const {addToCart} = useContext(cartContext)
-  console.log(product);
 
   const getProduct = async (id) => {
     const product = await getData(`https://dummyjson.com/products/${id}`)
@@ -45,9 +46,12 @@ const {addToCart} = useContext(cartContext)
 
   const { id, title, description, price, images, rating, discountPercentage, category, availabilityStatus, warrantyInformation
   } = product
-  // console.log(images[0]);
-  return (<Container maxW='container.md' my={5}>
-
+  return (<Container maxW='container.md' my={5} >
+<Button variant={'outline'} colorScheme='pink' my={5} fontSize={20}>
+<RouteLink to={'/'}>
+<ArrowBackIcon/> Home
+</RouteLink>
+</Button>
     <Card border={'solid 1px black'} cursor={'pointer'} >
       <HStack>
         <VStack spacing={1}>

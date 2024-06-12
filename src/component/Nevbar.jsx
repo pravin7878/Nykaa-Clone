@@ -1,4 +1,4 @@
-import { Box, Button, Center, Container, Flex, HStack, Heading, Input, Text, Link, Image, Menu, MenuButton, MenuList, MenuGroup, MenuItem, MenuDivider, Divider } from '@chakra-ui/react'
+import { Box, Button, Center, Container, Flex, HStack, Heading, Input, Text, Link, Image, Menu, MenuButton, MenuList, MenuGroup, MenuItem, MenuDivider, Divider, Badge } from '@chakra-ui/react'
 import { IoBagAddOutline } from "react-icons/io5";
 import { FaMobileAlt, FaUser, FaGift } from "react-icons/fa";
 import { IoIosNotifications } from 'react-icons/io';
@@ -9,19 +9,21 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Link as ChakraLink } from '@chakra-ui/react'
 import Dropdoun from '../helperComponent/Dropdoun';
 import DrawerExample from '../helperComponent/DrawerExample';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // from script
-import { getData } from '../script/getRequast';
-import { dropdaun ,dropdoun2} from '../script/navData';
+import { dropdaun, dropdoun2 } from '../script/navData';
 
 
 import Dropdoun1 from '../helperComponent/Dropdoun1';
+import { cartContext } from '../context/CartContextProvider';
 
 
 export default function Nevbar() {
     const [catagorys, setcatagorys] = useState([])
     const [containt, setcontaint] = useState([])
+    const [cartItemCount, setcartItemCount] = useState()
+    const {cartData} = useContext(cartContext)
     const topRightLinks = [
         {
             text: " Get App",
@@ -45,10 +47,10 @@ export default function Nevbar() {
         },
     ]
 
-   
 
-    
-
+useEffect(()=>{
+setcartItemCount(cartData?.length)
+},[cartData])
     return (<>
         <Box display={{ base: 'none', sm: 'none', md: 'block' }} bg={'rgb(67,145,182)'} py={2} color={'white'}>
             <Flex w={'80%'} m={'auto'} justify={'space-between'}>
@@ -108,7 +110,14 @@ export default function Nevbar() {
                         >Sing In</Button>
 
                         <RouterLink to={'/cart'}>
-                            <IoBagAddOutline size={'30px'} />
+                            <Badge ml={{base:'3',sm:'4',md:'5'}} mt={-1} bg='rgb(252,39,120)' pos={'absolute'} borderRadius={'50%'} color={'white'}>
+                              {cartItemCount}
+                            </Badge>
+                            <Text>
+
+                                <IoBagAddOutline size={'30px'} />
+                            </Text>
+
                         </RouterLink>
 
 
@@ -131,16 +140,16 @@ export default function Nevbar() {
                 </Flex>
             </Flex>
             <Box w={'80%'} m={'auto'} display={{ base: 'block', sm: 'block', md: 'none', lg: 'none' }} >
-                <Input type='search' variant={'filled'} placeholder='Explore Our Beauty Collection' size='sm' m={'auto'} />
+                <Input onChange={(e) => setquary(e.target.value)} type='search' variant={'filled'} placeholder='Explore Our Beauty Collection' size='sm' m={'auto'} />
             </Box>
         </Container>
         <Divider h={'1px'} bg={"black"} />
-        <Flex justify={'space-around'}  px={10} display={{base:'none',sm:'none',md:'flex',lg:'flex'}}>
+        <Flex justify={'space-around'} px={10} display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}>
             {dropdoun2?.map((ele, ind) => {
-                    return <Dropdoun1 btnText={ele.link} content={ele.Cont} key={ind} />
+                return <Dropdoun1 btnText={ele.link} content={ele.Cont} key={ind} />
             })}
         </Flex>
-        <Divider display={{base:'none',sm:'none',md:'flex',lg:'flex'}} h={'1px'} bg={"black"} />
+        <Divider display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }} h={'1px'} bg={"black"} />
     </>
     )
 }
