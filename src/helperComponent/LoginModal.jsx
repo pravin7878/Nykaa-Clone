@@ -19,7 +19,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import { auth } from "../firebase/Setup" 
 
 
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 
 // from phone input react
 import PhoneInput from 'react-phone-input-2'
@@ -34,7 +34,8 @@ export function LoginModal() {
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null)
 
-    console.log(otp);
+    const { } = useContext()
+    
 
     const sentOtp = async () => {
         try {
@@ -48,11 +49,14 @@ export function LoginModal() {
     }
 
 
-    const verifyOtp =async () => {
+    const verifyOtp = async () => {
+        console.log('otp',otp);
         try {
             
         const data = await user.confirm(otp)
         console.log(data);
+        console.log(data?._tokenResponse?.localId);
+setotp(null)
         } catch (error) {
             console.log(error);
         }
@@ -92,7 +96,7 @@ export function LoginModal() {
                             <Text>Enter Mobile Otp</Text>
                             <div id="recaptcha"></div>
                             <HStack>
-                                <PinInput otp onChange={(e) => setotp(e.target.value)}>
+                                <PinInput value={otp}  onChange={(otp) => setotp(otp)}>
                                     <PinInputField />
                                     <PinInputField />
                                     <PinInputField />

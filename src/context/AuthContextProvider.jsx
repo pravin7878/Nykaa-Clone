@@ -3,6 +3,7 @@ import React, { createContext,useState } from 'react'
 export const Authcontext = createContext()
 export default function AuthContextProvider({children}) {
   const [authState, setauthState] = useState({isLogned:false,Token:null})
+console.log('authState',authState);
 
   const login = (token)=>{
     setauthState({isLogned:true,Token:token})

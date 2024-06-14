@@ -17,7 +17,7 @@ import { dropdaun, dropdoun2 } from '../script/navData';
 
 import Dropdoun1 from '../helperComponent/Dropdoun1';
 import { cartContext } from '../context/CartContextProvider';
-import { LoginModal } from '../helperComponent/LoginModal';
+import { Login } from '../pagas/Login';
 
 
 export default function Nevbar() {
@@ -106,7 +106,7 @@ setcartItemCount(cartData?.length)
                     <Flex w={'50%'} align={'Center'} justify={'space-around'}
                     >
                         {/* Sing in button is hare */}
-                         <LoginModal/>
+                         <Login/>
 
                         <RouterLink to={'/cart'}>
                             {cartItemCount !== 0 ?
