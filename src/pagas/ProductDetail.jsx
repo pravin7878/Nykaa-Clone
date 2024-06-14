@@ -13,18 +13,32 @@ import { Link as ChakraLink } from '@chakra-ui/react';
 // from scriot
 import { getData } from '../script/getRequast';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { LodingIdicator2 } from './LodingIdicator';
+import ErrorIndicator from './ErrorIndicator';
 
 
 export default function ProductDetail() {
+const [isLoding, setisLoding] = useState(false)
+const [isErr, setisErr] = useState(false)
+
   const { product_id } = useParams()
   const toast = useToast()
   const Nevigate = useNavigate()
   const [product, setproduct] = useState({})
 const {addToCart} = useContext(cartContext)
 
+
   const getProduct = async (id) => {
-    const product = await getData(`https://dummyjson.com/products/${id}`)
-    setproduct(product)
+    setisLoding(true)
+    try {
+      const product = await getData(`https://dummyjson.com/products/${id}`)
+      setproduct(product)
+      setisLoding(false)
+    } catch (error) {
+      setisErr(true)
+      setisLoding(false)
+    }
+    
   }
 
   useEffect(() => {
@@ -46,6 +60,16 @@ const {addToCart} = useContext(cartContext)
 
   const { id, title, description, price, images, rating, discountPercentage, category, availabilityStatus, warrantyInformation
   } = product
+
+
+  if(isLoding){
+    return <LodingIdicator2/>
+  }
+  
+  if(isErr){
+    return <ErrorIndicator/>
+  }
+
   return (<Container maxW='container.md' my={5} >
 <Button variant={'outline'} colorScheme='pink' my={5} fontSize={20}>
 <RouteLink to={'/'}>

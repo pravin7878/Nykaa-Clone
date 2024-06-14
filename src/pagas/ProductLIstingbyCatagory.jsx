@@ -25,18 +25,18 @@ export default function ProductLIstingbyCatagory() {
     console.log('products', products);
 
     const categories = [
-        { state: "skincare", name: 'skin-care' },
+        { state: "skincare", name: "skin-care" },
         { state: "fragrances", name: "fragrances" },
-        { state: "beauty", name: 'beauty' },
+        { state: "beauty", name: "beauty" },
         { state: "womenswatches", name: 'womens-watches' },
-        { state: "tops", name: 'tops' },
+        { state: "tops", name: "tops" },
         { state: "womensbags", name: 'womens-bags' },
 
-        { state: "womensdresses", name: 'womens-dresses' },
+        { state: "womensdresses", name: "womens-dresses" },
 
-        { state: "womensjewellery", name: 'womens-jewellery' },
+        { state: "womensjewellery", name: "womens-jewellery" },
 
-        { state: "womensshoes", name: 'womens-shoes' },
+        { state: "womensshoes", name: "womens-shoes" },
     ];
 
 

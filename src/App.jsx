@@ -1,10 +1,11 @@
 import './App.css'
 import Nevbar from './component/Nevbar'
 import AllRoutes from './component/AllRoutes'
-import CartContextProvider from './context/CartContextProvider'
 import Footer from './pagas/Footer/Footer'
-import { AlertDialogExample } from './helperComponent/AlertDilog'
+
 import { Box } from '@chakra-ui/react'
+import ErrorIndicator from './pagas/ErrorIndicator'
+
 function App() {
 
   return (

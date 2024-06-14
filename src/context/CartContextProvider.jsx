@@ -11,13 +11,11 @@ export default function CartContextProvider({ children }) {
     const toast = useToast()
 
 
-    console.log('cartData', cartData);
 
     // initilising Cart Array
     let cartProduct = JSON.parse(localStorage.getItem('CartProduct')) || []
 
     const addToCart = (product) => {
-        // setcartData([...cartData,product])
         const productExists = cartProduct.some(item => item.id === product.id);
 
     if(!productExists){
@@ -44,7 +42,6 @@ export default function CartContextProvider({ children }) {
         })
         localStorage.setItem("CartProduct", JSON.stringify(updatedData))
         setcartData(updatedData)
-        console.log('updatedData', updatedData);
         toast({
             status: 'info',
             position: 'top',
@@ -95,7 +92,6 @@ export default function CartContextProvider({ children }) {
 
     useEffect(() => {
         setcartData(cartProduct)
-        console.log(cartData);
     }, [])
     return (
         <cartContext.Provider value={{ cartData, addToCart, deleteToCart, hendelQuantity,quantity }}>

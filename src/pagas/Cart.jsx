@@ -77,6 +77,8 @@ export function Cart() {
 
 
   const { totleMRP, totleDiscount, totlePrice, shipingCarge } = bagDetails
+
+  
   return (<>{!cartData.length ?
     <Container maxW={'container.lg'} my={5}>
       <Flex direction={'column'} gap={5} m={'auto'} w={'40%'} justify={'Center'} align={'Center'}>
@@ -102,6 +104,9 @@ export function Cart() {
         <VStack w={{ sm: '100%', md: '70%' }} my={5}>
           {cartData?.map((item) => {
             const { id, title, description, images: [img1], price, rating, discountPercentage, category, availabilityStatus, returnPolicy, shippingInformation, stock, brand, minimumOrderQuantity, bagprice } = item
+
+            const discount = Math.ceil(bagprice - (Math.floor((discountPercentage / 100) * bagprice)))
+            
             return <Card
               direction={{ base: 'column', sm: 'row' }}
               overflow='hidden'
@@ -129,7 +134,7 @@ export function Cart() {
                   </Text>
                   <HStack>
                     <Text fontWeight={'400'} textDecoration={'line-through'}>${bagprice}</Text>
-                    <Text fontWeight={'600'}>${bagprice - (Math.floor((discountPercentage / 100) * bagprice))}</Text>
+                    <Text fontWeight={'600'}>${discount}</Text>
                     <Text fontWeight={'500'}>{discountPercentage} % off</Text>
                   </HStack>
                   <Text py='2'>

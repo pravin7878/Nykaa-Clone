@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, HStack, Skeleton, SkeletonCircle, SkeletonText, Spinner, Stack } from '@chakra-ui/react'
+import { Container, Flex, HStack, Skeleton, SkeletonCircle, SkeletonText, Spinner, Stack } from '@chakra-ui/react'
 
 
 export default function LodingIdicator() {
@@ -14,6 +14,8 @@ export default function LodingIdicator() {
 }
 export function LodingIdicator2() {
     return (
+        <Container maxW={'container.lg'} >
+            <Flex justify={'center'} align={'center'} h={'70vh'}>
         <Spinner
         thickness='4px'
         speed='0.65s'
@@ -21,6 +23,8 @@ export function LodingIdicator2() {
         color='blue.500'
         size='xl'
       />
+      </Flex>
+      </Container>
     )
 }
 

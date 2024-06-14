@@ -17,6 +17,7 @@ import { dropdaun, dropdoun2 } from '../script/navData';
 
 import Dropdoun1 from '../helperComponent/Dropdoun1';
 import { cartContext } from '../context/CartContextProvider';
+import { LoginModal } from '../helperComponent/LoginModal';
 
 
 export default function Nevbar() {
@@ -104,15 +105,15 @@ setcartItemCount(cartData?.length)
                     </Box>
                     <Flex w={'50%'} align={'Center'} justify={'space-around'}
                     >
-                        <Button
-                            fontSize={'20px'} colorScheme='pink'
-                            display={{ base: 'none', sm: 'none', md: 'block' }}
-                        >Sing In</Button>
+                        {/* Sing in button is hare */}
+                         <LoginModal/>
 
                         <RouterLink to={'/cart'}>
+                            {cartItemCount !== 0 ?
                             <Badge ml={{base:'3',sm:'4',md:'5'}} mt={-1} bg='rgb(252,39,120)' pos={'absolute'} borderRadius={'50%'} color={'white'}>
                               {cartItemCount}
                             </Badge>
+                            : null}
                             <Text>
 
                                 <IoBagAddOutline size={'30px'} />

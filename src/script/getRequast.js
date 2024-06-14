@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useState } from "react"
 
 export const getData = async (Url)=>{
 try {
@@ -12,8 +13,23 @@ try {
 }
 }
 
-export const hendelLinks = (e)=>{
-console.log(e.target.innerText)
+export const hendelLinks =async (e)=>{
+  // const [quary, setquary] = useState(e.target.innerText)
+// const [Product, setProduct] = useState([])
+const quary = e.target.innerText
+console.log(quary);
+try {
+  let res = await axios({
+    method:'get',
+    url: `https://dummyjson.com/products/search?q=${"phone"}`
+  })
+
+// setProduct(res.data)
+console.log(res.data);
+} catch (error) {
+  console.log(error);
+}
+
 }
 
 
