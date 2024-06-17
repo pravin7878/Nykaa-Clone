@@ -4,15 +4,20 @@ import { cartContext } from '../context/CartContextProvider';
 
 // import {BeatLoader}
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, MinusIcon } from "@chakra-ui/icons"
 import { useState } from 'react';
 import { AlertDialogExample } from '../helperComponent/AlertDilog';
+import { Authcontext } from '../context/AuthContextProvider';
 
 
 export function Cart() {
-  const { cartData, deleteToCart, hendelQuantity, quantity } = useContext(cartContext)
+  const { cartData, deleteToCart, hendelQuantity, quantity,buyNow } = useContext(cartContext)
+
+  const { authState: { isLogned }, openModal } = useContext(Authcontext)
+  const navigate = useNavigate()
+
   console.log(cartData);
   const [isPaying, setisPaying] = useState(false)
 
@@ -63,11 +68,22 @@ export function Cart() {
     localStorage.setItem('orderInfo', JSON.stringify(newbagInfo))
   }
 
+  // const buyNow = (data) => {
+  //   if (!isLogned) {
+  //     openModal()
+  //   }
+  //   else {
+  //     navigate('/order',
+  //       {state: data}
+  //     );
+  //   }
+  // }
 
-  const hendelOrder = () => {
+  const hendelOrder = (data) => {
     setisPaying(true)
     setTimeout(() => {
       setisPaying(false)
+      buyNow(data)
     }, 1000)
   }
 
@@ -210,7 +226,7 @@ export function Cart() {
                   colorScheme='pink'
                   isLoading={isPaying}
                   loadingText='Paying'
-                  onClick={hendelOrder}
+                  onClick={()=>hendelOrder({item:cartData.length, price : totlePrice})}
                 >
                   Proceed To Pay
                 </Button>

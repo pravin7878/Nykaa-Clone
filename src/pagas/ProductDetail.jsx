@@ -7,7 +7,7 @@ import { Container, HStack, VStack, useToast } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Stack, Box, Text, Image, Divider, ButtonGroup, Button } from '@chakra-ui/react'
 import { cartContext } from '../context/CartContextProvider';
 import { Rate } from "antd"
-import { Link as RouteLink} from 'react-router-dom';
+import { Link as RouteLink } from 'react-router-dom';
 import { Link as ChakraLink } from '@chakra-ui/react';
 
 // from scriot
@@ -15,19 +15,22 @@ import { getData } from '../script/getRequast';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import { LodingIdicator2 } from './LodingIdicator';
 import ErrorIndicator from './ErrorIndicator';
-
+import { Authcontext } from '../context/AuthContextProvider';
+import OrderSuccessPage from './OrderSuccessPage';
 
 export default function ProductDetail() {
-const [isLoding, setisLoding] = useState(false)
-const [isErr, setisErr] = useState(false)
+  const [isLoding, setisLoding] = useState(false)
+  const [isErr, setisErr] = useState(false)
 
   const { product_id } = useParams()
   const toast = useToast()
   const Nevigate = useNavigate()
   const [product, setproduct] = useState({})
-const {addToCart} = useContext(cartContext)
+  const { addToCart } = useContext(cartContext)
+  const { authState: { isLogned }, openModal } = useContext(Authcontext)
+  const navigate = useNavigate()
 
-
+  
   const getProduct = async (id) => {
     setisLoding(true)
     try {
@@ -38,7 +41,7 @@ const {addToCart} = useContext(cartContext)
       setisErr(true)
       setisLoding(false)
     }
-    
+
   }
 
   useEffect(() => {
@@ -58,24 +61,36 @@ const {addToCart} = useContext(cartContext)
     addToCart(product)
   }
 
+  const buyNow = (data) => {
+    if (!isLogned) {
+      openModal()
+    }
+    else {
+      navigate('/order',
+        {state: data}
+      );
+    }
+  }
+
+
   const { id, title, description, price, images, rating, discountPercentage, category, availabilityStatus, warrantyInformation
   } = product
 
 
-  if(isLoding){
-    return <LodingIdicator2/>
+  if (isLoding) {
+    return <LodingIdicator2 />
   }
-  
-  if(isErr){
-    return <ErrorIndicator/>
+
+  if (isErr) {
+    return <ErrorIndicator />
   }
 
   return (<Container maxW='container.md' my={5} >
-<Button variant={'outline'} colorScheme='pink' my={5} fontSize={20}>
-<RouteLink to={'/'}>
-<ArrowBackIcon/> Home
-</RouteLink>
-</Button>
+    <Button variant={'outline'} colorScheme='pink' my={5} fontSize={20}>
+      <RouteLink to={'/'}>
+        <ArrowBackIcon /> Home
+      </RouteLink>
+    </Button>
     <Card border={'solid 1px black'} cursor={'pointer'} >
       <HStack>
         <VStack spacing={1}>
@@ -116,12 +131,14 @@ const {addToCart} = useContext(cartContext)
 
             <CardFooter>
               <HStack spacing={5}>
-                <Button variant='solid' colorScheme='pink'>
+                <Button variant='solid' colorScheme='pink'
+                  onClick={()=>buyNow({price : price,item:1})}
+                >
                   Buy Now
                 </Button>
                 <Button
                   variant='solid' colorScheme='pink'
-                  onClick={()=>hendelCart(product)}
+                  onClick={() => hendelCart(product)}
                 >
                   Add To Cart
                 </Button>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import {
   Button,
   Modal,
@@ -28,8 +28,8 @@ import 'react-phone-input-2/lib/style.css'
 import { Authcontext } from "../context/AuthContextProvider"
 
 export function Login() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [phone, setphone] = useState("")
+  // const { isOpen, onOpen, onClose } = useDisclosure()
+  const [phone, setphone] = useState(null)
   const [user, setuser] = useState("")
   const [otp, setotp] = useState("")
   const [isErr, setisErr] = useState(false)
@@ -38,68 +38,85 @@ export function Login() {
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
 
-  const { login, logout, authState: { isLogned } } = useContext(Authcontext)
+  const { login, authState: { isLogned },logout,isOpen,openModal,closeModal } = useContext(Authcontext)
 
 
   const sentOtp = async () => {
-    try {
-      const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
-      const confirmation = await signInWithPhoneNumber(auth, phone, recaptcha)
-      setuser(confirmation)
-      setphone(null)
-      if (confirmation.status === 200) {
-        toast({
-          title: "opt sent Success",
-          status: "info",
-          isClosable: true,
-          position: "top",
-          duration: "2000"
-        })
+    if(phone){
+      try {
+        const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
+        const confirmation = await signInWithPhoneNumber(auth, phone, recaptcha)
+        setuser(confirmation)
+        setphone(null)
+        if (confirmation.status === 200) {
+          toast({
+            title: "opt sent Success",
+            status: "info",
+            isClosable: true,
+            position: "top",
+            duration: "2000"
+          })
+        }
+      } catch (error) {
+        console.log(error);
+        setisErr(true);
+        setphone(null)
       }
-    } catch (error) {
-      console.log(error);
-      setisErr(true);
-      setphone(null)
-      // toast({
-      //   title:"Enter your Phone No.",
-      //   status:"errer",
-      //   isClosable:true,
-      //   position:"top",
-      //   duration:"2000"
-      // })
     }
-  }
-
-
-  const verifyOtp = async () => {
-    console.log('otp', otp);
-    try {
-
-      const data = await user.confirm(otp)
-      console.log(data);
-      const token = data?._tokenResponse?.localId
-      // if (data.status === 200) {
-        login(token);
-        onClose()
-        toast({
-          title: "Login Success",
-          status: "success",
-          isClosable: true,
-          position: "top",
-          duration: "2000"
-        })
-      // }
-      setotp(null)
-    } catch (error) {
-      console.log(error);
+       else{
       toast({
-        title: "Invalid Token",
+        title: "Please Enter Otp",
         status: "errer",
         isClosable: true,
         position: "top",
         duration: "2000"
       })
+   
     }
+   
+  }
+
+
+
+  const verifyOtp = async () => {
+    console.log('otp', otp);
+    if(otp){
+      try {
+        const data = await user.confirm(otp)
+        console.log(data);
+        const token = data?._tokenResponse?.localId
+        // if (data.status === 200) {
+          login(token);
+          onClose()
+          toast({
+            title: "Login Success",
+            status: "success",
+            isClosable: true,
+            position: "top",
+            duration: "2000"
+          })
+        // }
+        setotp(null)
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Invalid Token",
+          status: "errer",
+          isClosable: true,
+          position: "top",
+          duration: "2000"
+        })
+      }
+    }
+    // else{
+    //   toast({
+    //     title: "Please Enter Otp",
+    //     status: "errer",
+    //     isClosable: true,
+    //     position: "top",
+    //     duration: "2000"
+    //   })
+    // }
   }
 
   if (isErr) {
@@ -113,21 +130,23 @@ export function Login() {
     })
   }
 
+  
   return (
     <>
-      {isLogned ? <Button onClick={logout}>Logout</Button>
+      {isLogned ? <Button variant={'outline'} colorScheme="pink" onClick={logout}>Logout</Button>
         :
         <Button
           fontSize={'20px'} colorScheme='pink'
           display={{ base: 'none', sm: 'none', md: 'block' }}
-          onClick={onOpen}
+          onClick={openModal}
         >Sing In</Button>
       }
+       
       <Modal
         initialFocusRef={initialRef}
         finalFocusRef={finalRef}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={closeModal}
       >
         <ModalOverlay />
         <ModalContent>
@@ -164,7 +183,7 @@ export function Login() {
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button variant={"outline"} colorScheme="pink" onClick={closeModal}>Close</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

@@ -1,15 +1,20 @@
 import { Button, useToast } from '@chakra-ui/react'
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { AlertDialogExample } from '../helperComponent/AlertDilog'
+import { Authcontext } from './AuthContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 
 export const cartContext = createContext()
+
 export default function CartContextProvider({ children }) {
     const [cartData, setcartData] = useState([])
     const [quantity, setquantity] = useState(1)
 
     const toast = useToast()
 
+    const { authState: { isLogned }, openModal } = useContext(Authcontext)
+  const navigate = useNavigate()
 
 
     // initilising Cart Array
@@ -89,12 +94,26 @@ export default function CartContextProvider({ children }) {
         setcartData(updatedData)
     }
 
+    const buyNow = (data) => {
+        if (!isLogned) {
+          openModal()
+        }
+        else {
+            const alldelete = []
+            localStorage.setItem("CartProduct", JSON.stringify(alldelete))
+            setcartData(alldelete)
 
+          navigate('/order',
+            {state: data}
+          );
+         
+        }
+      }
     useEffect(() => {
         setcartData(cartProduct)
     }, [])
     return (
-        <cartContext.Provider value={{ cartData, addToCart, deleteToCart, hendelQuantity,quantity }}>
+        <cartContext.Provider value={{ cartData, addToCart, deleteToCart, hendelQuantity,quantity,buyNow }}>
             {children}
         </cartContext.Provider>
     )

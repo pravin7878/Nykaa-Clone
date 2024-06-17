@@ -4,7 +4,7 @@ import { FaMobileAlt, FaUser, FaGift } from "react-icons/fa";
 import { IoIosNotifications } from 'react-icons/io';
 import { CiMobile1, CiLocationOn } from "react-icons/ci";
 import { IoMdHelp } from "react-icons/io";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 import { Link as ChakraLink } from '@chakra-ui/react'
 import Dropdoun from '../helperComponent/Dropdoun';
@@ -18,13 +18,16 @@ import { dropdaun, dropdoun2 } from '../script/navData';
 import Dropdoun1 from '../helperComponent/Dropdoun1';
 import { cartContext } from '../context/CartContextProvider';
 import { Login } from '../pagas/Login';
+import { Authcontext } from '../context/AuthContextProvider';
 
 
 export default function Nevbar() {
     const [catagorys, setcatagorys] = useState([])
     const [containt, setcontaint] = useState([])
     const [cartItemCount, setcartItemCount] = useState()
-    const {cartData} = useContext(cartContext)
+    const { cartData } = useContext(cartContext)
+    const { login, logout, authState: { isLogned } } = useContext(Authcontext)
+
     const topRightLinks = [
         {
             text: " Get App",
@@ -49,9 +52,9 @@ export default function Nevbar() {
     ]
 
 
-useEffect(()=>{
-setcartItemCount(cartData?.length)
-},[cartData])
+    useEffect(() => {
+        setcartItemCount(cartData?.length)
+    }, [cartData])
     return (<>
         <Box display={{ base: 'none', sm: 'none', md: 'block' }} bg={'rgb(67,145,182)'} py={2} color={'white'}>
             <Flex w={'80%'} m={'auto'} justify={'space-between'}>
@@ -106,14 +109,14 @@ setcartItemCount(cartData?.length)
                     <Flex w={'50%'} align={'Center'} justify={'space-around'}
                     >
                         {/* Sing in button is hare */}
-                         <Login/>
+                        <Login />
 
                         <RouterLink to={'/cart'}>
                             {cartItemCount !== 0 ?
-                            <Badge ml={{base:'3',sm:'4',md:'5'}} mt={-1} bg='rgb(252,39,120)' pos={'absolute'} borderRadius={'50%'} color={'white'}>
-                              {cartItemCount}
-                            </Badge>
-                            : null}
+                                <Badge ml={{ base: '3', sm: '4', md: '5' }} mt={-1} bg='rgb(252,39,120)' pos={'absolute'} borderRadius={'50%'} color={'white'}>
+                                    {cartItemCount}
+                                </Badge>
+                                : null}
                             <Text>
 
                                 <IoBagAddOutline size={'30px'} />
@@ -127,12 +130,12 @@ setcartItemCount(cartData?.length)
                                 <FaUser size={'30px'} />
                             </MenuButton>
                             <MenuList>
+                                <MenuItem>Log In</MenuItem>
                                 <MenuItem>Need Help?</MenuItem>
                                 <MenuItem>Authenticity</MenuItem>
                                 <MenuItem>Nykaa CSR</MenuItem>
                                 <MenuItem>Responsible Disclosure</MenuItem>
                                 <MenuItem>Chat Now</MenuItem>
-                                <MenuItem>Log In</MenuItem>
                             </MenuList>
                         </Menu>
 
