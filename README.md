@@ -1,8 +1,33 @@
-# React + Vite
+### your most wellcome to in my Nykaa Clone project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##### You Know this is a E-commerce project So I have buld in this project that  functionality which is Most Importent for a E-commerce Project. like 
+#### Functionality
+##### 1. product listing,
+##### 2. singal product detail,
+##### 3. add to cart/bag
+##### 4. Icrease and decrease quantity
+##### 5. Delete to cart/bag
+##### 6. login and logOut with firebase Mobile Otp intigrated
+##### 7. It is fully responsive also you can test any device.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Teck Stack
+##### Frontend:-
+1. React js
+2. chakra ui
+3. firebase
+4. axios
+5. Context Api
+6. react-router-dom
+7. swiper js
+
+##### Backend:-
+1. LocalStorang
+2. Moke Api :- 
+     ```https://dummyjson.com/docs/products```
+
+
+#### Thainks
+
+
+

@@ -47,7 +47,7 @@ export function Login() {
         const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {})
         const confirmation = await signInWithPhoneNumber(auth, phone, recaptcha)
         setuser(confirmation)
-        setphone(null)
+        setphone("")
         if (confirmation.status === 200) {
           toast({
             title: "opt sent Success",
@@ -88,24 +88,24 @@ export function Login() {
         // if (data.status === 200) {
           login(token);
           onClose()
-          toast({
-            title: "Login Success",
-            status: "success",
-            isClosable: true,
-            position: "top",
-            duration: "2000"
-          })
+          // toast({
+          //   title: "Login Success",
+          //   status: "success",
+          //   isClosable: true,
+          //   position: "top",
+          //   duration: "2000"
+          // })
         // }
         setotp(null)
       } catch (error) {
         console.log(error);
-        toast({
-          title: "Invalid Token",
-          status: "errer",
-          isClosable: true,
-          position: "top",
-          duration: "2000"
-        })
+        // toast({
+        //   title: "Invalid Token",
+        //   status: "errer",
+        //   isClosable: true,
+        //   position: "top",
+        //   duration: "2000"
+        // })
       }
     }
     // else{
