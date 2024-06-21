@@ -10,6 +10,7 @@
 ##### 6. login and logOut with firebase Mobile Otp intigrated
 ##### 7. It is fully responsive also you can test any device.
 
+live link :- ```https://nykaa-clone-omega.vercel.app/```
 
 #### Teck Stack
 ##### Frontend:-
