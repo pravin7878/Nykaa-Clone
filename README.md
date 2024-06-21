@@ -5,7 +5,7 @@
 ##### 1. product listing,
 ##### 2. singal product detail,
 ##### 3. add to cart/bag
-##### 4. Icrease and decrease quantity
+##### 4. Increase and decrease quantity
 ##### 5. Delete to cart/bag
 ##### 6. login and logOut with firebase Mobile Otp intigrated
 ##### 7. It is fully responsive also you can test any device.
