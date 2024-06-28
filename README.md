@@ -1,34 +1,35 @@
-### your most wellcome to in my Nykaa Clone project
+# Nykaa Clone
 
-##### You Know this is a E-commerce project So I have buld in this project that  functionality which is Most Importent for a E-commerce Project. like 
-#### Functionality
-##### 1. product listing,
-##### 2. singal product detail,
-##### 3. add to cart/bag
-##### 4. Increase and decrease quantity
-##### 5. Delete to cart/bag
-##### 6. login and logOut with firebase Mobile Otp intigrated
-##### 7. It is fully responsive also you can test any device.
+Welcome to the Nykaa Clone project! This is an e-commerce web application that mimics the functionality of Nykaa. It includes essential features for a seamless shopping experience.
 
-live link :- ```https://nykaa-clone-omega.vercel.app/```
+## Live Demo
 
-#### Teck Stack
-##### Frontend:-
-1. React js
-2. chakra ui
-3. firebase
-4. axios
-5. Context Api
-6. react-router-dom
-7. swiper js
+Check out the live demo [here](https://nykaa-clone-71a8vekge-pravin-kumars-projects.vercel.app/).
 
-##### Backend:-
-1. LocalStorang
-2. Moke Api :- 
-     ```https://dummyjson.com/docs/products```
+## Features
 
+- **Product Listing:** Browse a wide range of products.
+- **Single Product Detail:** Get detailed information about each product.
+- **Add to Cart/Bag:** Easily add items to your cart.
+- **Quantity Management:** Increase or decrease item quantities in your cart.
+- **Cart Management:** Remove items from your cart with ease.
+- **User Authentication:** Secure login and logout with Firebase mobile OTP integration.
+- **Responsive Design:** Optimized for all devices.
 
-#### Thainks
+## Tech Stack
 
+### Frontend
 
+- **React.js:** A JavaScript library for building user interfaces.
+- **Chakra UI:** A simple, modular, and accessible component library for React.
+- **Firebase:** Provides backend services such as authentication.
+- **Axios:** A promise-based HTTP client for the browser and Node.js.
+- **Context API:** A React structure that enables you to exchange unique details and assists in solving prop-drilling.
+- **React Router DOM:** A collection of navigational components for React.
+- **Swiper.js:** A modern mobile touch slider.
+
+### Backend
+
+- **LocalStorage:** For storing user data locally.
+- **Mock API:** Using [DummyJSON](https://dummyjson.com/docs/products) for mock data.
 
