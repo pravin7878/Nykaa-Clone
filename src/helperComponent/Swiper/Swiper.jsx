@@ -6,17 +6,23 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
 
 import './styles.css';
 
 // import required modules
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation ,Autoplay} from 'swiper/modules';
 // import ProductCard from '../../pagas/ProductCard';
 
 
 
 
-export default function MySwiper({children,page}) {
+export default function MySwiper(props) {
+console.log(props);
+  console.log(props.autoplay);
+
+
+  const { children, page} = props
 
 const [ScreenSize, setScreenSize] = useState(window.innerWidth)
 const [prePage,setprePage] = useState(page)
@@ -76,7 +82,10 @@ return ()=>{
           clickable: true,
         }}
         navigation={true}
-        modules={[Pagination, Navigation]}
+        autoplay = {props?.autoplay}
+        slidesPerGroup={props?.slidesPerGroup}
+
+        modules={[Pagination, Navigation , Autoplay]}
         className="mySwiper"
       >
         {children}
